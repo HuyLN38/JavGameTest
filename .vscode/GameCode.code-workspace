@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../.."
+		}
+	],
+	"settings": {
+		"java.project.outputPath": "bin",
+		"java.project.sourcePaths": [
+			"src",
+			"res"
+		],
+		"java.format.settings.url": "eclipse-formatter.xml"
+	}
+}

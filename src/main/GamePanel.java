@@ -1,21 +1,30 @@
 package main;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
+import static utilz.Constants.PlayerConstants.*;
+import static utilz.Constants.Direction.*;
 
 public class GamePanel extends JPanel {
 
 	private MouseInputs mouseInputs;
-	private int xDelta = 100, yDelta = 100;
+	private Game game;
 
-	public GamePanel() {
+	// private Color color;
 
+	public GamePanel(Game game) {
+
+		this.game = game;
+		setPanelSize();
 		mouseInputs = new MouseInputs(this);
 		addKeyListener(new KeyboardInputs(this));
 		addMouseListener(mouseInputs);
@@ -23,27 +32,24 @@ public class GamePanel extends JPanel {
 
 	}
 
-	public void changeXDelta(int value) {
-		this.xDelta += value;
-		repaint();
+	private void setPanelSize() {
+		Dimension hd = new Dimension(1280, 800);
+		setPreferredSize(hd);
 	}
+	public void updateGame() {
 
-	public void changeYDelta(int value) {
-		this.yDelta += value;
-		repaint();
-	}
-	
-	public void setRectPos(int x, int y) {
-		this.xDelta = x;
-		this.yDelta = y;
-		repaint();
-	}
+		}
 
-	public void paintComponent(Graphics g) {
+		public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		g.fillRect(xDelta, yDelta, 200, 50);
+		game.render(g);
 
 	}
 
+	public Game getGame(){
+		return game;
+	}
+
+		
 }

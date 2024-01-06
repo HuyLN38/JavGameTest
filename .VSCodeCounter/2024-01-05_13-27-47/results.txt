@@ -1,0 +1,45 @@
+Date : 2024-01-05 13:27:47
+Directory : d:\Code\JavGameTest
+Total : 13 files,  232 codes, 7 comments, 70 blanks, all 309 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Java     |         12 |        231 |          7 |         70 |        308 |
+| Markdown |          1 |          1 |          0 |          0 |          1 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                   |         13 |        232 |          7 |         70 |        309 |
+| . (Files)                                           |          1 |          1 |          0 |          0 |          1 |
+| bin                                                 |          6 |        103 |          0 |          0 |        103 |
+| bin\inputs                                          |          2 |         43 |          0 |          0 |         43 |
+| bin\main                                            |          4 |         60 |          0 |          0 |         60 |
+| src                                                 |          6 |        128 |          7 |         70 |        205 |
+| src\inputs                                          |          2 |         67 |          7 |         34 |        108 |
+| src\main                                            |          4 |         61 |          0 |         36 |         97 |
++-----------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                            | language | code       | comment    | blank      | total      |
++-----------------------------------------------------+----------+------------+------------+------------+------------+
+| d:\Code\JavGameTest\README.md                       | Markdown |          1 |          0 |          0 |          1 |
+| d:\Code\JavGameTest\bin\inputs\KeyboardInputs.class | Java     |         16 |          0 |          0 |         16 |
+| d:\Code\JavGameTest\bin\inputs\MouseInputs.class    | Java     |         27 |          0 |          0 |         27 |
+| d:\Code\JavGameTest\bin\main\Game.class             | Java     |         13 |          0 |          0 |         13 |
+| d:\Code\JavGameTest\bin\main\GamePanel.class        | Java     |         19 |          0 |          0 |         19 |
+| d:\Code\JavGameTest\bin\main\GameWindow.class       | Java     |         20 |          0 |          0 |         20 |
+| d:\Code\JavGameTest\bin\main\MainClass.class        | Java     |          8 |          0 |          0 |          8 |
+| d:\Code\JavGameTest\src\inputs\KeyboardInputs.java  | Java     |         33 |          2 |         14 |         49 |
+| d:\Code\JavGameTest\src\inputs\MouseInputs.java     | Java     |         34 |          5 |         20 |         59 |
+| d:\Code\JavGameTest\src\main\Game.java              | Java     |         10 |          0 |          7 |         17 |
+| d:\Code\JavGameTest\src\main\GamePanel.java         | Java     |         32 |          0 |         17 |         49 |
+| d:\Code\JavGameTest\src\main\GameWindow.java        | Java     |         13 |          0 |          8 |         21 |
+| d:\Code\JavGameTest\src\main\MainClass.java         | Java     |          6 |          0 |          4 |         10 |
+| Total                                               |          |        232 |          7 |         70 |        309 |
++-----------------------------------------------------+----------+------------+------------+------------+------------+
