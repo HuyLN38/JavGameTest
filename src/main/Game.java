@@ -3,6 +3,7 @@ package main;
 import java.awt.Graphics;
 
 import entities.Player;
+import levels.LevelManager;
 
 public class Game implements Runnable{
 	
@@ -12,7 +13,16 @@ public class Game implements Runnable{
 	private final int FPS_SET = 100;
 	private final int UPS_SET = 100;
 
+	public final static int TILE_DEFAULT_SIZE = 32;
+	public final static float SCALE = 2.0f;
+	public final static int TILE_IN_WIDTH = 26;
+	public final static int TILE_IN_HEIGHT = 14;
+	public final static int TILES_SIZE = (int)(TILE_DEFAULT_SIZE * SCALE);
+	public final static int GAME_WIDTH = TILES_SIZE * TILE_IN_WIDTH;
+	public final static int GAME_HEIGHT = TILES_SIZE * TILE_IN_HEIGHT;
+
 	private Player player;
+	private LevelManager LevelManager;
 
 	
 	public Game() {
@@ -28,7 +38,9 @@ public class Game implements Runnable{
 	}
 
 	private void initClasses() {
-		player = new Player(100, 100);
+		LevelManager = new LevelManager(this);
+		player = new Player(250, 250, (int)(48*SCALE), (int)(48*SCALE));
+		player.loadLvData(LevelManager.getLevel().getLevelData());
 	}
 
 	private void StartGameLoop() {
@@ -40,9 +52,11 @@ public class Game implements Runnable{
 
 	private void update(){ 
 		player.update();
+		LevelManager.update();
 	}
 
 	public void render(Graphics g){
+		LevelManager.draw(g);
 		player.render(g);
 	}
 
@@ -105,5 +119,9 @@ public class Game implements Runnable{
 		public Player getPlayer(){
 			return player;
 	}
+
+		public void windowFocusLost() {
+			player.resetDirBoolean();
+		}
 
 }

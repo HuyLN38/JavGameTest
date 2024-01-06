@@ -11,6 +11,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
+import static main.Game.GAME_HEIGHT;
+import static main.Game.GAME_WIDTH;
 import static utilz.Constants.PlayerConstants.*;
 import static utilz.Constants.Direction.*;
 
@@ -33,17 +35,18 @@ public class GamePanel extends JPanel {
 	}
 
 	private void setPanelSize() {
-		Dimension hd = new Dimension(1280, 800);
+		Dimension hd = new Dimension(GAME_WIDTH, GAME_HEIGHT);
 		setPreferredSize(hd);
 	}
 	public void updateGame() {
 
 		}
 
-		public void paintComponent(Graphics g) {
-		super.paintComponent(g);
+	public void paintComponent(Graphics g) {
+	
+	super.paintComponent(g);
 
-		game.render(g);
+	game.render(g);
 
 	}
 

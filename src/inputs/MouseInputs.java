@@ -21,13 +21,15 @@ public class MouseInputs implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		gamePanel.getGame().getPlayer().setRectPos(e.getX(), e.getY());
+		// gamePanel.getGame().getPlayer().setRectPos(e.getX(), e.getY());
 
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		
+	public void mouseClicked(MouseEvent e) {	
+		if(e.getButton() == MouseEvent.BUTTON1){
+			gamePanel.getGame().getPlayer().SetAttack(true);
+		}
 	}
 
 	@Override
