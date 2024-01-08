@@ -38,29 +38,6 @@ public class LevelManager {
         for(int i = 0; i < Game.TILE_IN_WIDTH; i++)
             for (int j = 0; j < Game.TILE_IN_HEIGHT; j++) {
                 int index = levelOne.GetSpriteIndex(i, j);
-                switch (index){
-                    case 1:
-                        index = 3;
-                        break;
-                    case 13:
-                        index = 17;
-                        break;
-                    case 25:
-                        index = 38;
-                        break;
-                    case 4:
-                        index = 39;
-                        break;
-                    case 5:
-                        index = 41;
-                        break;
-                    case 11:
-                        index = 0;
-                        break;
-                    default :
-                        index = 17; 
-                        break;
-                }
                 g.drawImage(levelSprite[index], TILES_SIZE*i, TILES_SIZE*j,TILES_SIZE,TILES_SIZE,  null);
             }
     }

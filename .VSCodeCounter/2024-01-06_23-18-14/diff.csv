@@ -1,0 +1,12 @@
+"filename", "language", "Java", "Markdown", "JSON", "comment", "blank", "total"
+"d:\Code\JavGameTest\.VSCodeCounter\2024-01-06_16-50-44\details.md", "Markdown", 0, 44, 0, 0, 6, 50
+"d:\Code\JavGameTest\.VSCodeCounter\2024-01-06_16-50-44\diff-details.md", "Markdown", 0, 40, 0, 0, 6, 46
+"d:\Code\JavGameTest\.VSCodeCounter\2024-01-06_16-50-44\diff.md", "Markdown", 0, 30, 0, 0, 7, 37
+"d:\Code\JavGameTest\.VSCodeCounter\2024-01-06_16-50-44\results.json", "JSON", 0, 0, 1, 0, 0, 1
+"d:\Code\JavGameTest\.VSCodeCounter\2024-01-06_16-50-44\results.md", "Markdown", 0, 31, 0, 0, 7, 38
+"d:\Code\JavGameTest\bin\entities\Player.class", "Java", -2, 0, 0, 0, 0, -2
+"d:\Code\JavGameTest\bin\levels\LevelManager.class", "Java", -2, 0, 0, 0, 0, -2
+"d:\Code\JavGameTest\bin\utilz\HelpMethods.class", "Java", -1, 0, 0, 0, 0, -1
+"d:\Code\JavGameTest\src\entities\Player.java", "Java", -1, 0, 0, 0, 0, -1
+"d:\Code\JavGameTest\src\levels\LevelManager.java", "Java", -23, 0, 0, 0, 0, -23
+"Total", "-", -29, 145, 1, 0, 26, 143

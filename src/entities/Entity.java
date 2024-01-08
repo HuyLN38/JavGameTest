@@ -7,6 +7,7 @@ import java.awt.geom.Rectangle2D;
 
 public abstract class Entity {
 
+    protected int dir = 1; 
     protected float x, y;
     protected int width, height;
     protected Rectangle2D.Float hitbox;

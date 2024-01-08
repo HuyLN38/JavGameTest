@@ -50,12 +50,14 @@ public class KeyboardInputs implements KeyListener {
 			break;
 		case KeyEvent.VK_A:
 			gamePanel.getGame().getPlayer().setLeft(true);
+			gamePanel.getGame().getPlayer().setDir(-1);
 			break;
 		case KeyEvent.VK_S:
 			gamePanel.getGame().getPlayer().setDown(true);
 			break;
 		case KeyEvent.VK_D:
 			gamePanel.getGame().getPlayer().setRight(true);
+			gamePanel.getGame().getPlayer().setDir(1);
 			break;
 		case KeyEvent.VK_SPACE:
 			gamePanel.getGame().getPlayer().setJump(true);
