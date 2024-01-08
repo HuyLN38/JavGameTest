@@ -1,8 +1,7 @@
 package levels;
 
 import static main.Game.TILES_SIZE;
-import static main.Game.TILE_IN_HEIGHT;
-import static main.Game.TILE_IN_WIDTH;
+
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;

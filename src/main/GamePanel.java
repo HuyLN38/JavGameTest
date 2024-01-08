@@ -3,18 +3,13 @@ package main;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.io.InputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+
 import javax.swing.JPanel;
 import inputs.KeyboardInputs;
 import inputs.MouseInputs;
 import static main.Game.GAME_HEIGHT;
 import static main.Game.GAME_WIDTH;
-import static utilz.Constants.PlayerConstants.*;
-import static utilz.Constants.Direction.*;
+
 
 public class GamePanel extends JPanel {
 
@@ -45,6 +40,8 @@ public class GamePanel extends JPanel {
 	public void paintComponent(Graphics g) {
 	
 	super.paintComponent(g);
+
+	g.setColor(Color.BLACK);
 
 	game.render(g);
 

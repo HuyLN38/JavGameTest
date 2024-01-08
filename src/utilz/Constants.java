@@ -18,7 +18,7 @@ public class Constants {
         public static final int RUNNING = 2;
         public static final int RUNNING2 = 3;
         public static final int JUMPING = 4;
-        public static final int ATTACK = 5;
+        public static final int ATTACK[] = {5,6,7,8,10};
         public static final int SHOOT = 12;
         public static final int DEFENSE = 13;
         public static final int CROUCH = 17;
@@ -34,8 +34,13 @@ public class Constants {
                     return 6;
                 case JUMPING:
                     return 2;
-                case ATTACK:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
                     return 5;
+                case 10:
+                    return 8;
                 case SHOOT:
                     return 4;
                 case HURT:

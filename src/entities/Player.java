@@ -3,7 +3,6 @@ package entities;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-
 import static utilz.Constants.PlayerConstants.*;
 // import static utilz.Constants.Direction.*;
 import static utilz.HelpMethods.CanMoveHere;
@@ -18,6 +17,7 @@ import utilz.LoadSave;
 public class Player extends Entity {
 
     public BufferedImage[][] PlayerAnimation;
+    private BufferedImage temp;
     private int animationTick, animationIndex, animationSpeed = 25;
     private int playerAction = IDLE;
     private boolean left, up, right, down = false;
@@ -30,6 +30,9 @@ public class Player extends Entity {
     private float jumpSpeed = -4f * Game.SCALE;
     private float fallSpeedAfterCollision = 0.1f * Game.SCALE;
     private boolean inAir = false;
+    private boolean direction = true;
+
+    private int i = 0, jump_count = 0, jump_cache = 0;
 
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
@@ -47,8 +50,18 @@ public class Player extends Entity {
     }
 
     public void render(Graphics g) {
-        g.drawImage(PlayerAnimation[playerAction][animationIndex], (int) (hitbox.x - xDrawOffset),
-                (int) (hitbox.y - yDrawOffset), width, height, null);
+        temp = PlayerAnimation[playerAction][animationIndex];
+        int xDrawPos = (int) (hitbox.x - xDrawOffset);
+        int yDrawPos = (int) (hitbox.y - yDrawOffset);
+        int drawWidth = width;
+        int drawHeight = height;
+        
+        if (left || !direction) {
+            // Flip the image horizontally
+            g.drawImage(temp, xDrawPos + drawWidth, yDrawPos, -drawWidth, drawHeight, null);
+        } else {
+            g.drawImage(temp, xDrawPos, yDrawPos, drawWidth, drawHeight, null);
+        }
     }
 
     private void loadAnimation() {
@@ -83,13 +96,17 @@ public class Player extends Entity {
     private void updateAnimationTick() {
 
         animationTick++;
-        animationSpeed = (int) (100 / GetSpiritAmount(playerAction));
+        animationSpeed = (int) (70 / GetSpiritAmount(playerAction));
         if (animationTick >= animationSpeed) {
             animationTick = 0;
             animationIndex++;
             if (animationIndex >= GetSpiritAmount(playerAction)) {
                 animationIndex = 0;
                 attacking = false;
+                if (i <= 2)
+                    i++;
+                else
+                    i = 0;
             }
         }
 
@@ -107,9 +124,8 @@ public class Player extends Entity {
             if (airSpeed < 0)
                 playerAction = JUMPING;
         if (attacking) {
-            playerAction = ATTACK;
+            playerAction = ATTACK[i];
         }
-
         if (startedAni != playerAction) {
             resetAniTick();
         }
@@ -122,25 +138,29 @@ public class Player extends Entity {
     }
 
     private void updatePos() {
-
         moving = false;
 
         if (jump) {
             jump();
         }
+
+        if (!inAir) {
+            if (!IsEntityOnFloor(hitbox, LevelData)) {
+                inAir = true;
+            }
+            jump_count = 0;
+            jump_cache = 0;
+        }
+
         if (!left && !right && !inAir)
             return;
-        
+
         float xSpeed = 0;
-        
+
         if (left)
             xSpeed -= playerSpeed;
         if (right)
             xSpeed += playerSpeed;
-        
-        if (!inAir)
-            if (!IsEntityOnFloor(hitbox, LevelData))
-                inAir = true;
 
         if (inAir) {
             if (CanMoveHere(hitbox.x, hitbox.y + airSpeed, hitbox.width, hitbox.height, LevelData)) {
@@ -149,7 +169,7 @@ public class Player extends Entity {
                 updateXPos(xSpeed);
             } else {
                 hitbox.y = GetEntityYPosUnderRoofOrAboveFloor(hitbox, airSpeed);
-                if (airSpeed > 0) 
+                if (airSpeed > 0)
                     resetInAir();
                 else
                     airSpeed = fallSpeedAfterCollision;
@@ -165,7 +185,9 @@ public class Player extends Entity {
     }
 
     private void jump() {
-        if (inAir)
+            if (jump_count == 0 || jump_count == 1 || jump_count == 2)
+                jump_cache++;
+        if ((inAir && (jump_cache > 1 || jump_count > 1))|| (jump_count == 0 && jump_cache == 0))
             return;
         inAir = true;
         airSpeed = jumpSpeed;
@@ -174,7 +196,6 @@ public class Player extends Entity {
     private void resetInAir() {
         inAir = false;
         airSpeed = 0;
-
     }
 
     private void updateXPos(float xSpeed) {
@@ -230,12 +251,15 @@ public class Player extends Entity {
 
     public void setJump(boolean jump) {
         this.jump = jump;
+        if (!jump) {
+            jump_count++;
+            jump_cache = 0;      
+        }
     }
 
-    public void setDir(int Dir) {
-        this.dir = Dir;
+    public void setDir(boolean direction) {
+        this.direction = direction;
     }
-
 }
 
 //
