@@ -24,7 +24,7 @@ public class Player extends Entity {
     private boolean moving = false, attacking = false, jump = false;
     private float playerSpeed = 1.7f;
     private int[][] LevelData;
-    private float xDrawOffset = 18 * Game.SCALE, yDrawOffset = 16 * Game.SCALE;
+    private float xDrawOffset = 25 * Game.SCALE, yDrawOffset = 18 * Game.SCALE;
     private float airSpeed = 0f;
     private float gravity = 0.1f * Game.SCALE;
     private float jumpSpeed = -4f * Game.SCALE;
@@ -37,7 +37,7 @@ public class Player extends Entity {
     public Player(float x, float y, int width, int height) {
         super(x, y, width, height);
         loadAnimation();
-        initHitbox(x, y, 12 * Game.SCALE, 16 * Game.SCALE);
+        initHitbox(x, y, (int)(width/8) * Game.SCALE, height/5 * Game.SCALE);
         // TODO Auto-generated constructor stub
     }
 
@@ -55,13 +55,17 @@ public class Player extends Entity {
         int yDrawPos = (int) (hitbox.y - yDrawOffset);
         int drawWidth = width;
         int drawHeight = height;
-        
+
         if (left || !direction) {
             // Flip the image horizontally
             g.drawImage(temp, xDrawPos + drawWidth, yDrawPos, -drawWidth, drawHeight, null);
         } else {
             g.drawImage(temp, xDrawPos, yDrawPos, drawWidth, drawHeight, null);
         }
+        
+        // // Draw the hitbox
+        // Enable hitbox drawing
+        // g.drawRect((int)hitbox.x, (int)hitbox.y, (int)hitbox.width, (int)hitbox.height);
     }
 
     private void loadAnimation() {
