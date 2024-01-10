@@ -1,5 +1,7 @@
 package utilz;
 
+import main.Game;
+
 public class Constants {
 
     public static class Direction {
@@ -9,6 +11,19 @@ public class Constants {
         public static final int RIGHT = 2;
         public static final int DOWN = 3;
 
+    }
+
+    public static class UI{
+
+        public static final int MENU_BUTTON_WIDTH = 31;
+        public static final int MENU_BUTTON_HEIGHT = 15;
+        public static final int MENU_WIDTH = (int)(MENU_BUTTON_WIDTH * Game.SCALE*4);
+        public static final int MENU_HEIGHT = (int)(MENU_BUTTON_HEIGHT * Game.SCALE*4);
+
+        public static final int MENU_BUTTON = 0;
+        public static final int MENU_BUTTON_HOVER = 1;
+        public static final int MENU_BUTTON_PRESSED = 2;
+    
     }
 
     public static class PlayerConstants {

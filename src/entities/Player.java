@@ -100,7 +100,7 @@ public class Player extends Entity {
     private void updateAnimationTick() {
 
         animationTick++;
-        animationSpeed = (int) (70 / GetSpiritAmount(playerAction));
+        animationSpeed = (int) (80 / GetSpiritAmount(playerAction));
         if (animationTick >= animationSpeed) {
             animationTick = 0;
             animationIndex++;
@@ -194,6 +194,9 @@ public class Player extends Entity {
         if ((inAir && (jump_cache > 1 || jump_count > 1))|| (jump_count == 0 && jump_cache == 0))
             return;
         inAir = true;
+        if (jump_count == 1){
+            airSpeed = (int)(jumpSpeed / 1.2);
+        } else
         airSpeed = jumpSpeed;
     }
 
