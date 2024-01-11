@@ -17,6 +17,8 @@ public class LoadSave {
     public static final String MENU_BUTTON = "res/menu.png";
     public static final String MENU_BACKGROUND = "res/table.png";
     public static final String MENU_BACKGROUND_REAL = "res/background.png";
+    public static final String PAUSE_BACKGROUND = "res/pausemenu.png";
+    public static final String SOUND_BUTTON = "res/volume.png";
 
     
     public static BufferedImage GetSpriteAtlast(String fileName){

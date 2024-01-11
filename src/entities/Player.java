@@ -31,6 +31,7 @@ public class Player extends Entity {
     private float fallSpeedAfterCollision = 0.1f * Game.SCALE;
     private boolean inAir = false;
     private boolean direction = true;
+    private float xSpeed = 0;
 
     private int i = 0, jump_count = 0, jump_cache = 0;
 
@@ -143,6 +144,7 @@ public class Player extends Entity {
 
     private void updatePos() {
         moving = false;
+        xSpeed = 0;
 
         if (jump) {
             jump();
@@ -158,8 +160,6 @@ public class Player extends Entity {
 
         if (!left && !right && !inAir)
             return;
-
-        float xSpeed = 0;
 
         if (left)
             xSpeed -= playerSpeed;

@@ -24,6 +24,10 @@ public class Constants {
         public static final int MENU_BUTTON_HOVER = 1;
         public static final int MENU_BUTTON_PRESSED = 2;
     
+            public static class PauseButton{
+        public static final int SOUND_SIZE_DEFAULT = 14;
+        public static final int SOUND_SIZE = (int)(SOUND_SIZE_DEFAULT * Game.SCALE*2);
+    }
     }
 
     public static class PlayerConstants {
