@@ -17,7 +17,7 @@ public class VolumeBar extends PauseButton {
     public VolumeBar(int x, int y, int width, int height) {
         super(x, y, width, height);
 
-        volumex = x + VOLUME_BAR_LENGTH;
+        volumex = x + VOLUME_BAR_LENGTH - 5;
 
         loadVolumeImages();
     }

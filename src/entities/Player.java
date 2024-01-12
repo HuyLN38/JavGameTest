@@ -22,7 +22,7 @@ public class Player extends Entity {
     private int playerAction = IDLE;
     private boolean left, up, right, down = false;
     private boolean moving = false, attacking = false, jump = false;
-    private float playerSpeed = 1.7f;
+    private float playerSpeed = 20.5f;
     private int[][] LevelData;
     private float xDrawOffset = 25 * Game.SCALE, yDrawOffset = 18 * Game.SCALE;
     private float airSpeed = 0f;
@@ -50,7 +50,7 @@ public class Player extends Entity {
 
     }
 
-    public void render(Graphics g) {
+    public void render(Graphics g, int LevelOffSet) {
         temp = PlayerAnimation[playerAction][animationIndex];
         int xDrawPos = (int) (hitbox.x - xDrawOffset);
         int yDrawPos = (int) (hitbox.y - yDrawOffset);
@@ -59,9 +59,9 @@ public class Player extends Entity {
 
         if (left || !direction) {
             // Flip the image horizontally
-            g.drawImage(temp, xDrawPos + drawWidth, yDrawPos, -drawWidth, drawHeight, null);
+            g.drawImage(temp, (xDrawPos + drawWidth) - LevelOffSet, yDrawPos, -drawWidth, drawHeight, null);
         } else {
-            g.drawImage(temp, xDrawPos, yDrawPos, drawWidth, drawHeight, null);
+            g.drawImage(temp, xDrawPos - LevelOffSet, yDrawPos, drawWidth, drawHeight, null);
         }
         
         // // Draw the hitbox

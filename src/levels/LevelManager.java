@@ -33,11 +33,11 @@ public class LevelManager {
             }
     }
 
-    public void draw(Graphics g){
-        for(int i = 0; i < Game.TILE_IN_WIDTH; i++)
+    public void draw(Graphics g, int xLevelOffSet){
+        for(int i = 0; i < levelOne.getLevelData().length; i++)
             for (int j = 0; j < Game.TILE_IN_HEIGHT; j++) {
                 int index = levelOne.GetSpriteIndex(i, j);
-                g.drawImage(levelSprite[index], TILES_SIZE*i, TILES_SIZE*j,TILES_SIZE,TILES_SIZE,  null);
+                g.drawImage(levelSprite[index], TILES_SIZE*i - xLevelOffSet, TILES_SIZE*j,TILES_SIZE,TILES_SIZE,  null);
             }
     }
     

@@ -54,37 +54,13 @@ public class SoundButton extends PauseButton{
     public void draw(Graphics g){
         g.drawImage(soundImages[rowIndex][colIndex], x, y, SOUND_SIZE, SOUND_SIZE, null);
     }
-
-    public int getColIndex() {
-        return colIndex;
-    }
-
-    public void setColIndex(int colIndex) {
-        this.colIndex = colIndex;
-    }
-
-    public int getRowIndex() {
-        return rowIndex;
-    }
-
-    public void setRowIndex(int rowIndex) {
-        this.rowIndex = rowIndex;
-    }
-    
+ 
     public boolean isMuted() {
         return muted;
     }
 
     public void setMuted(boolean muted) {
         this.muted = muted;
-    }
-
-    public BufferedImage[][] getSoundImages() {
-        return soundImages;
-    }
-
-    public void setSoundImages(BufferedImage[][] soundImages) {
-        this.soundImages = soundImages;
     }
 
     public boolean MouseOver() {

@@ -21,6 +21,8 @@ public class LoadSave {
     public static final String SOUND_BUTTON = "res/volume.png";
     public static final String VOLUME_BAR = "res/volumebar.png";
     public static final String VOLUME_SET = "res/volumeset.png";
+    public static final String BUTTON_MENU = "res/Button.png";
+
 
     
     public static BufferedImage GetSpriteAtlast(String fileName){
@@ -35,8 +37,8 @@ public class LoadSave {
         }
 
     public static int[][] GetLevelData(){
-        int[][] LevelData = new int [Game.TILE_IN_WIDTH][Game.TILE_IN_HEIGHT];
             BufferedImage img = GetSpriteAtlast(LEVEL_ONE_DATA);
+            int[][] LevelData = new int [img.getWidth()][img.getHeight()];
 
             for (int j = 0; j < img.getHeight(); j++) {
                 for (int i = 0; i < img.getWidth(); i++) {

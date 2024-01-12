@@ -36,6 +36,12 @@ public class Constants {
         public static final int VOLUME_SET_LENGTH = (int)(VOLUME_BAR_LENGTH/25);
         public static final int VOLUME_SET_HEIGHT = (int)(VOLUME_BAR_HEIGHT*1.5);
     }
+        public static class PauseMenu{
+        public static final int BUTTON_WIDTH_DEFAULT = 46;
+        public static final int BUTTON_WIDTH = (int)(BUTTON_WIDTH_DEFAULT * Game.SCALE*1.5);
+        public static final int BUTTON_HEIGHT_DEFAULT = 14;
+        public static final int BUTTON_HEIGHT = (int)(BUTTON_HEIGHT_DEFAULT * Game.SCALE*1.5);
+        }
     }
 
     public static class PlayerConstants {

@@ -1,5 +1,7 @@
 package utilz;
 
+import static main.Game.GAME_HEIGHT;
+
 import java.awt.geom.Rectangle2D;
 
 import main.Game;
@@ -29,7 +31,9 @@ public class HelpMethods {
     }
 
     private static boolean isSolid(float x, float y, int[][] LevelData){
-        if (x < 0 || x >= Game.GAME_WIDTH){
+        int maxWidth = LevelData.length * Game.TILES_SIZE;
+        // System.out.println(maxWidth);
+        if (x < 0 || x >= maxWidth){
             return true;
         }
         if (y < 0 || y >= Game.GAME_HEIGHT){

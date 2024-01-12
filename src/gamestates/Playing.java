@@ -1,5 +1,9 @@
 package gamestates;
 
+import static main.Game.GAME_HEIGHT;
+import static main.Game.GAME_WIDTH;
+
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -8,18 +12,27 @@ import entities.Player;
 import levels.LevelManager;
 import main.Game;
 import ui.PauseOverlay;
+import utilz.LoadSave;
 
 public class Playing extends State implements Statemethods{
 
     private Player player;
 	private LevelManager LevelManager;
     private PauseOverlay pauseOverlay;
-    private boolean paused = false;
+    public static boolean paused = false;
+
+    private int xLevelOffSet;
+    private int leftBorder = (int )(0.2 * Game.GAME_WIDTH);
+    private int rightBorder = (int )(0.8 * Game.GAME_WIDTH);
+    private int LevelTitesWide = LoadSave.GetLevelData().length;
+    private int maxTitlesOffSet = LevelTitesWide - Game.TILE_IN_WIDTH;
+    private int maxLevelOffSetX = maxTitlesOffSet * Game.TILES_SIZE;
 
     public Playing(Game game) {
         
         super(game);
         initClasses();
+        
         
     }
 
@@ -36,20 +49,42 @@ public class Playing extends State implements Statemethods{
         if (!paused){
         LevelManager.update();
         player.update();
+        checkBorder();
         }
         pauseOverlay.update();
 
     }
 
 
+    private void checkBorder() {
+       int playerX = (int) player.getHitbox().x;
+       int diff = playerX - xLevelOffSet;
+
+       if(diff > rightBorder){
+           xLevelOffSet += diff - rightBorder;
+       } else if (diff < leftBorder){
+           xLevelOffSet += diff - leftBorder;
+       }
+
+       if(xLevelOffSet > maxLevelOffSetX){
+           xLevelOffSet = maxLevelOffSetX;
+       } else if (xLevelOffSet < 0){
+           xLevelOffSet = 0;
+       }
+    }
+
+
     @Override
     public void draw(Graphics g) {
            
-            LevelManager.draw(g);
-            player.render(g);
+            LevelManager.draw(g, xLevelOffSet);
+            player.render(g, xLevelOffSet);
 
-            if (paused)
+            if (paused){
+            g.setColor(new Color(0,0,0,200));
+            g.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
             pauseOverlay.draw(g);
+            }
 
     }
 
@@ -124,12 +159,12 @@ public class Playing extends State implements Statemethods{
 		return player;
 	}
 
-    public Gamestate getState() {
+    public static Gamestate getState() {
         return Gamestate.state;
     }
 
-    public void setPaused(boolean pause) {
-        this.paused = !isPaused();
+    public static void setPaused(boolean pause) {
+        paused = pause;
     }
 
     public boolean isPaused() {
