@@ -1,6 +1,8 @@
 package ui;
 
 import static utilz.Constants.UI.PauseButton.SOUND_SIZE;
+import static utilz.Constants.UI.VolumeBar.*;
+
 
 import java.awt.Graphics;
 
@@ -16,11 +18,13 @@ public class PauseOverlay {
     private BufferedImage background;
     private int bgX, bgY, bgW, bgH;
     private SoundButton musicButton, sfxButton;
+    private VolumeBar volumeBar;
 
     public PauseOverlay(){
-
+;  
         loadBackground();
         createSoundButton();
+        
 
     }
     
@@ -30,6 +34,9 @@ public class PauseOverlay {
         int sfxY = (int)(195*Game.SCALE);
         musicButton = new SoundButton(soundX, musicY, SOUND_SIZE, SOUND_SIZE);
         sfxButton = new SoundButton(soundX, sfxY, SOUND_SIZE, SOUND_SIZE);
+        int volumex = (int)((Game.GAME_WIDTH/4 + 50 - VOLUME_BAR_LENGTH/2)*Game.SCALE);
+        int volumey = (int)(290*Game.SCALE);
+        volumeBar = new VolumeBar(volumex, volumey, VOLUME_BAR_LENGTH, VOLUME_BAR_HEIGHT);
         
     }
 
@@ -46,6 +53,8 @@ public class PauseOverlay {
 
         musicButton.update();
         sfxButton.update();
+        volumeBar.update();
+        
 
     }
 
@@ -54,10 +63,12 @@ public class PauseOverlay {
         
         musicButton.draw(g);
         sfxButton.draw(g);
+        volumeBar.draw(g);
+
     }
-
+    
     public void mouseDragged(MouseEvent e) {
-
+        
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -73,6 +84,10 @@ public class PauseOverlay {
           sfxButton.setMousePressed(true);
             // System.out.println("sfx button pressed");
       }
+
+      if (isIn(e, volumeBar)){
+          volumeBar.setMousePressed(!volumeBar.isMousePressed());
+        }
     }
 
     public void mouseReleased(MouseEvent e) {
@@ -84,6 +99,7 @@ public class PauseOverlay {
             if(sfxButton.isMousePressed()){
                 sfxButton.setMuted(!sfxButton.isMuted());
             }
+        
 
         musicButton.reset();
         sfxButton.reset();
@@ -98,6 +114,13 @@ public class PauseOverlay {
             musicButton.setMouseOver(true);
         else if (isIn(e, sfxButton))
             sfxButton.setMouseOver(true);
+        
+        if (volumeBar.isMousePressed()){
+            int volumeX = e.getX();
+            int minVolumeX = volumeBar.getX();
+            int maxVolumeX = volumeBar.getX() + volumeBar.getWidth()-5;
+            volumeBar.setVolumeX(Math.max(minVolumeX, Math.min(maxVolumeX, volumeX)));
+        }
     }
 
     public boolean isIn(MouseEvent e, PauseButton b) {

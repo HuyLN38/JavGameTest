@@ -28,6 +28,14 @@ public class Constants {
         public static final int SOUND_SIZE_DEFAULT = 14;
         public static final int SOUND_SIZE = (int)(SOUND_SIZE_DEFAULT * Game.SCALE*2);
     }
+            public static class VolumeBar{
+        public static final int VOLUME_BAR_DEFAULT_LENGTH = 50;
+        public static final int VOLUME_BAR_DEFAULT_HEIGHT = 5;
+        public static final int VOLUME_BAR_LENGTH = (int)(VOLUME_BAR_DEFAULT_LENGTH * Game.SCALE*2);
+        public static final int VOLUME_BAR_HEIGHT = (int)(VOLUME_BAR_DEFAULT_HEIGHT * Game.SCALE*2);
+        public static final int VOLUME_SET_LENGTH = (int)(VOLUME_BAR_LENGTH/25);
+        public static final int VOLUME_SET_HEIGHT = (int)(VOLUME_BAR_HEIGHT*1.5);
+    }
     }
 
     public static class PlayerConstants {
