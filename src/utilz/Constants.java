@@ -3,6 +3,13 @@ package utilz;
 import main.Game;
 
 public class Constants {
+    public static class GRASSLAND{
+        public static final int GRASSLAND_WIDTH_DEFAULT = 288;
+        public static final int GRASSLAND_WIDTH = (int)(GRASSLAND_WIDTH_DEFAULT * Game.SCALE*1.2);
+        public static final int GRASSLAND_HEIGHT_DEFAULT = 208;
+        public static final int GRASSLAND_HEIGHT = (int)(GRASSLAND_HEIGHT_DEFAULT * Game.SCALE*1.2);
+
+    }
 
     public static class Direction {
 

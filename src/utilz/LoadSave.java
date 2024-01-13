@@ -12,7 +12,7 @@ import main.Game;
 public class LoadSave {
 
     public static final String PLAYER_ATLAS = "res/player_sprites.png";
-    public static final String LEVEL_ATLAS = "res/Terrain.png";
+    public static final String LEVEL_ATLAS = "res/Texture/grassland/Terrain.png";
     private static final String LEVEL_ONE_DATA = "res/Level1.png";
     public static final String MENU_BUTTON = "res/menu.png";
     public static final String MENU_BACKGROUND = "res/table.png";
@@ -22,6 +22,12 @@ public class LoadSave {
     public static final String VOLUME_BAR = "res/volumebar.png";
     public static final String VOLUME_SET = "res/volumeset.png";
     public static final String BUTTON_MENU = "res/Button.png";
+    //GRASSLAND
+    public static final String GRASSLAND_BACKGROUND = "res/Texture/grassland/sky.png";
+    public static final String GRASSLAND_BIGCLOUD = "res/Texture/grassland/bigcloud.png";
+    public static final String GRASSLAND_SMALLCLOUD = "res/Texture/grassland/smallcloud.png";
+    public static final String GRASSLAND_GROUND = "res/Texture/grassland/ground.png";
+    public static final String GRASSLAND_HILLS = "res/Texture/grassland/hills.png";
 
 
     
