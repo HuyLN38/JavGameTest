@@ -3,7 +3,6 @@ package ui;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import utilz.LoadSave;
-import java.awt.event.MouseEvent;
 
 import static utilz.Constants.UI.VolumeBar.*;
 

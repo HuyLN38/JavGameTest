@@ -30,9 +30,9 @@ public class EnemyManager {
       chomps = LoadSave.GetChomp();
     }
 
-    public void update(int[][] LevelData){
+    public void update(int[][] LevelData, Player player){
         for (Chomp chomp : chomps) {
-            chomp.update(LevelData);
+            chomp.update(LevelData, player);
         }
 
     }

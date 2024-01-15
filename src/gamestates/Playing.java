@@ -66,7 +66,7 @@ public class Playing extends State implements Statemethods {
     public void update() {
         if (!paused) {
             LevelManager.update();
-            EnemyManager.update(LevelManager.getLevel().getLevelData());
+            EnemyManager.update(LevelManager.getLevel().getLevelData(), player);
             player.update();
             checkBorder();
         }

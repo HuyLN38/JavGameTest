@@ -8,8 +8,8 @@ public class Constants {
         public static final int CHOMP = 0;
 
         public static final int IDLE = 0;
-        public static final int CRAWLING = 2;
         public static final int ATTACK = 1;
+        public static final int CRAWLING = 2;
         public static final int HIT = 3;
         public static final int DEATH = 4;
 
