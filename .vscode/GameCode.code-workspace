@@ -10,6 +10,7 @@
 	"settings": {
 		"java.project.outputPath": "bin",
 		"java.project.sourcePaths": [
+			"Test123",
 			"src"
 		],
 		"java.format.settings.url": "eclipse-formatter.xml"

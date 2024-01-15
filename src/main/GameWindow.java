@@ -12,11 +12,11 @@ public class GameWindow {
 
 		jframe = new JFrame();
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		jframe.add(gamePanel);
-		jframe.setLocation(0, 0); // Set the location to top left of the screen
+		jframe.add(gamePanel); // Set the location to top left of the screen
 
 		jframe.setResizable(false);
 		jframe.pack();
+		jframe.setLocationRelativeTo(null);
 		jframe.setVisible(true);
 
 		jframe.addWindowFocusListener(new WindowFocusListener() {

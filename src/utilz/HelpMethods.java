@@ -2,7 +2,10 @@ package utilz;
 
 import static main.Game.GAME_HEIGHT;
 
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 
 import main.Game;
 
@@ -82,5 +85,18 @@ public class HelpMethods {
                     return false;
             return true;
         }
+
+        public static boolean IsFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] LevelData){
+            return isSolid(hitbox.x+xSpeed, hitbox.y+ hitbox.height + 1 , LevelData);
+        }
+
+        public static BufferedImage flipImageHorizontally(BufferedImage image) {
+            AffineTransform transform = new AffineTransform();
+            transform.scale(-1, 1);
+            transform.translate(-image.getWidth(), 0);
+            AffineTransformOp operation = new AffineTransformOp(transform, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+            return operation.filter(image, null);
+        }
+        
 }
     

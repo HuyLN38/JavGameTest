@@ -3,6 +3,43 @@ package utilz;
 import main.Game;
 
 public class Constants {
+
+    public static class EnemyConstants {
+        public static final int CHOMP = 0;
+
+        public static final int IDLE = 0;
+        public static final int CRAWLING = 2;
+        public static final int ATTACK = 1;
+        public static final int HIT = 3;
+        public static final int DEATH = 4;
+
+        public static final int CHOMP_WIDTH_DEFAULT = 32;
+        public static final int CHOMP_WIDTH = (int)(CHOMP_WIDTH_DEFAULT * Game.SCALE*1.2);
+        public static final int CHOMP_HEIGHT_DEFAULT = 32;
+        public static final int CHOMP_HEIGHT = (int)(CHOMP_HEIGHT_DEFAULT * Game.SCALE*1.2);
+
+        public static final int CHOMP_DRAWOFFSET_X = (int)(CHOMP_WIDTH*0.3*Game.SCALE);
+        public static final int CHOMP_DRAWOFFSET_Y = (int)(CHOMP_HEIGHT*0.3*Game.SCALE);
+
+        public static int GetSpriteAmount(int enemy_type, int enemy_state) {
+            switch (enemy_type) {
+                case CHOMP:
+                    switch (enemy_state) {
+                        case IDLE:
+                            return 2;
+                        case CRAWLING:
+                            return 12;
+                        case ATTACK:
+                            return 6;
+                        case HIT:
+                            return 1;
+                        case DEATH:
+                            return 1;
+                    }
+            }
+            return 0;
+        }
+    }
     public static class GRASSLAND{
         public static final int GRASSLAND_WIDTH_DEFAULT = 288;
         public static final int GRASSLAND_WIDTH = (int)(GRASSLAND_WIDTH_DEFAULT * Game.SCALE*1.2);
