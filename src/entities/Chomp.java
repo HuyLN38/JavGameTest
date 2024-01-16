@@ -15,14 +15,19 @@ public class Chomp extends Enemy {
         super(x, y, CHOMP_WIDTH, CHOMP_HEIGHT, CHOMP);
         WalkingSpeed = 2.5f;
         initHitbox(x, y, (int) (CHOMP_WIDTH * 0.8), (int) (CHOMP_HEIGHT * 0.5));
+        initAttackBox((int) (CHOMP_WIDTH * 0.3), (int) (CHOMP_HEIGHT * 0.3));
+        
     }
 
-    public void drawHitbox(Graphics g) {
+    public void drawHitbox(Graphics g, int xLevelOffSet) {
         g.setColor(Color.RED);
-        g.drawRect((int) hitbox.x, (int) hitbox.y, (int) (CHOMP_WIDTH * 0.8), (int) (CHOMP_HEIGHT * 0.5));
+        g.drawRect((int) hitbox.x - xLevelOffSet , (int) hitbox.y, (int) (CHOMP_WIDTH * 0.8), (int) (CHOMP_HEIGHT * 0.5));
+
+        g.setColor(Color.PINK);
+        g.drawRect((int)AttackBox.x - xLevelOffSet, (int)AttackBox.y, (int)AttackBox.width, (int)AttackBox.height);
     }
 
-    private void updateMove(int[][] LevelData, Player player) {
+    private void updateBehavior(int[][] LevelData, Player player) {
         if (firstTime) {
             firstUpdate(LevelData);
         }
@@ -40,13 +45,25 @@ public class Chomp extends Enemy {
                         newState(ATTACK);
                     Move(LevelData);
                     break;
+                case ATTACK:
+                    if(aniIndex == 0)
+                        attackChecked = false;
+                    if(aniIndex == 3 && !attackChecked)
+                        checkPlayerHit(AttackBox, player);
+                    break;
+                case HIT:
+                    break;
             }
         }
     }
 
     public void update(int[][] LevelData, Player player) {
-        updateMove(LevelData, player);
+        updateAttackBox();
+
+        updateBehavior(LevelData, player);
+
         updateAnimationTick();
+        
     }
 
 }

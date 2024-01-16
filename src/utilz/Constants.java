@@ -10,8 +10,8 @@ public class Constants {
         public static final int IDLE = 0;
         public static final int ATTACK = 1;
         public static final int CRAWLING = 2;
-        public static final int HIT = 3;
-        public static final int DEATH = 4;
+        public static final int DEATH = 3;
+        public static final int HIT = 4;
 
         public static final int CHOMP_WIDTH_DEFAULT = 32;
         public static final int CHOMP_WIDTH = (int)(CHOMP_WIDTH_DEFAULT * Game.SCALE*1.2);
@@ -39,6 +39,23 @@ public class Constants {
             }
             return 0;
         }
+
+        public static int GetMaxHealth(int enemy_type) {
+            switch (CHOMP) {
+                case CHOMP:
+                    return 10;
+            }
+            return 1;
+        }
+
+        public static int GetAttackDamage(int enemy_type) {
+            switch (CHOMP) {
+                case CHOMP:
+                    return 10;
+            }
+            return 0;
+        }
+
     }
     public static class GRASSLAND{
         public static final int GRASSLAND_WIDTH_DEFAULT = 288;
@@ -86,8 +103,18 @@ public class Constants {
         public static final int BUTTON_HEIGHT_DEFAULT = 14;
         public static final int BUTTON_HEIGHT = (int)(BUTTON_HEIGHT_DEFAULT * Game.SCALE*1.5);
         }
-    }
 
+        public static class HealthBar{
+        public static final int HEALTH_BAR_WIDTH_DEFAULT = 76;
+        public static final int HEALTH_BAR_WIDTH = (int)(HEALTH_BAR_WIDTH_DEFAULT * Game.SCALE*2);
+        public static final int HEALTH_BAR_HEIGHT_DEFAULT = 19;
+        public static final int HEALTH_BAR_HEIGHT = (int)(HEALTH_BAR_HEIGHT_DEFAULT * Game.SCALE*2);
+        public static final int HEALTH_HEIGHT = (int)(4*Game.SCALE*2);
+        public static final int HEALTH_BAR_DRAWOFFX = (int)(58*Game.SCALE);
+        public static final int HEALTH_BAR_DRAWOFFY = (int)(36*Game.SCALE);
+        public static final int HEALTH_WIDTH = (int)(HEALTH_BAR_WIDTH*0.74);
+    }
+    }
     public static class PlayerConstants {
 
         public static final int IDLE = 0;

@@ -26,6 +26,7 @@ public class LoadSave {
     public static final String VOLUME_BAR = "res/volumebar.png";
     public static final String VOLUME_SET = "res/volumeset.png";
     public static final String BUTTON_MENU = "res/Button.png";
+    public static final String HEALTH_BAR = "res/healthbar.png";
     //GRASSLAND
     public static final String GRASSLAND_BACKGROUND = "res/Texture/grassland/sky.png";
     public static final String GRASSLAND_BIGCLOUD = "res/Texture/grassland/bigcloud.png";
