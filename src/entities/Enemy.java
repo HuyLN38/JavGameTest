@@ -4,7 +4,6 @@ import static utilz.Constants.EnemyConstants.*;
 import static utilz.HelpMethods.*;
 
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Float;
 
 import static utilz.Constants.Direction.*;
 
@@ -13,7 +12,7 @@ import main.Game;
 public class Enemy extends Entity {
 
     protected int aniIndex, enemyState, enemyType;
-    protected int aniTick, aniSpeed = 25;
+    protected int aniTick, aniSpeed = 20;
     protected boolean firstTime = true, inAir = false;
     protected float FallSpeed;
     protected float gravity = 0.1f * Game.SCALE;
@@ -38,6 +37,12 @@ public class Enemy extends Entity {
 
     protected void updateAnimationTick() {
         aniTick++;
+        if(enemyState == ATTACK)
+            aniSpeed = 10;
+        else if (enemyState == HIT) {
+            aniSpeed = 50;
+        } else
+            aniSpeed = 20;
         if (aniTick >= aniSpeed) {
             aniTick = 0;
             aniIndex++;
@@ -82,6 +87,8 @@ public class Enemy extends Entity {
         }
         if (CanMoveHere(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, LevelData))
             if (IsFloor(hitbox, xSpeed, LevelData)) {
+                // if(knockback != 0)
+                //     xSpeed = knockback;
                 hitbox.x += xSpeed;
                 return;
             }
@@ -143,23 +150,37 @@ public class Enemy extends Entity {
         return absSight <= SightRange;
     }
 
-    public void hurt(int value) {
+    public void hurt(int value, Player player) {
         Health -= value;
         if (Health <= 0) {
             newState(DEATH);
         } else {
             newState(HIT);
         }
+        setKnockback(0.2f, player);
     }
 
     public boolean isActive() {
         return active;
     }
 
-    protected void checkPlayerHit(Rectangle2D.Float AttackBox, Player player) {
+    protected void checkPlayerHit(Rectangle2D.Float AttackBox, Player player, int enemyType) {
         if (AttackBox.intersects(player.getHitbox())) {
             player.changeHealth(-GetAttackDamage(enemyType));
             attackChecked = true;
+            player.isHurt(true);
+            player.setKnockback(GetKnockBack(enemyType), this.hitbox);
         }
+    }
+
+    protected void resetAll(){
+        hitbox.x = x;
+        hitbox.y = y;
+        Health = MaxHealth;
+        active = true;
+        firstTime = true;
+        newState(IDLE);
+        FallSpeed = 0;
+
     }
 }

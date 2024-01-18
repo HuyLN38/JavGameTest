@@ -26,8 +26,9 @@ public class Player extends Entity {
     private int animationTick, animationIndex, animationSpeed = 25;
     private int playerAction = IDLE;
     private boolean left, up, right, down = false;
-    private boolean moving = false, attacking = false, jump = false;
+    private boolean moving = false, attacking = false, jump = false, hurt = false;
     private float playerSpeed = 3.00f;
+    private float knockback = 0;
     private int[][] LevelData;
     private float xDrawOffset = 25 * Game.SCALE, yDrawOffset = 18 * Game.SCALE;
     private float airSpeed = 0f;
@@ -39,10 +40,10 @@ public class Player extends Entity {
     private float xSpeed = 0;
     private boolean attackChecked;
 
-    //HEALTH
+    // HEALTH
     private BufferedImage HealthBar;
     private int MaxHealth = 100;
-    //ATTACK BOX
+    // ATTACK BOX
 
     private int i = 0, jump_count = 0, jump_cache = 0;
     private Playing playing;
@@ -52,23 +53,24 @@ public class Player extends Entity {
         this.playing = playing;
         loadAnimation();
         Health = MaxHealth;
-        initHitbox(x, y, (int)(width/8) * Game.SCALE, height/5 * Game.SCALE);
-        // TODO Auto-generated constructor stub
+        initHitbox(x, y, (int) (width / 8) * Game.SCALE, height / 5 * Game.SCALE);
         initAttackBox(20, 20);
     }
 
     public void update() {
 
-        if(Health <= 0){
-            playing.setGameOver(true);
+        if (Health <= 0) {
+            if (isDead()){
+                playing.setGameOver(true);
             return;
+            }
         }
 
         updateHealth();
         updateAttackBox();
-        
+
         updatePos();
-        if(attacking)
+        if (attacking)
             checkAttack();
         else
             attackChecked = false;
@@ -78,23 +80,23 @@ public class Player extends Entity {
     }
 
     private void checkAttack() {
-    if(attackChecked || animationIndex != 1){
-        return;
+        if (attackChecked || animationIndex != 1) {
+            return;
+        }
+        attackChecked = true;
+        playing.checkEnemyHit(AttackBox);
     }
-    attackChecked = true;
-    playing.checkEnemyHit(AttackBox);
-}
 
     protected void updateAttackBox() {
-       if(direction)
-        AttackBox.x = hitbox.x + hitbox.width;
-       else 
-        AttackBox.x = hitbox.x - AttackBox.width;
-        AttackBox.y = hitbox.y + (hitbox.height/2) - (AttackBox.height/2);
+        if (direction)
+            AttackBox.x = hitbox.x + hitbox.width;
+        else
+            AttackBox.x = hitbox.x - AttackBox.width;
+        AttackBox.y = hitbox.y + (hitbox.height / 2) - (AttackBox.height / 2);
     }
 
     private void updateHealth() {
-       
+
     }
 
     public void render(Graphics g, int LevelOffSet) {
@@ -104,32 +106,36 @@ public class Player extends Entity {
         int drawWidth = width;
         int drawHeight = height;
 
-        if (attacking){
+        if (attacking) {
             direction = previousDirection;
-            if(left) left = !left;
-            if(right) right = !right;
-    }
-        else 
+            if (left)
+                left = !left;
+            if (right)
+                right = !right;
+        } else
             previousDirection = direction;
-        
-        if (left || !direction) {         
+
+        if (left || !direction) {
             // Flip the image horizontally
             g.drawImage(temp, (xDrawPos + drawWidth) - LevelOffSet, yDrawPos, -drawWidth, drawHeight, null);
         } else {
             g.drawImage(temp, xDrawPos - LevelOffSet, yDrawPos, drawWidth, drawHeight, null);
         }
-        //Draw attackBox
+        // Draw attackBox
         g.setColor(Color.PINK);
-        g.drawRect((int)AttackBox.x - LevelOffSet, (int)AttackBox.y, (int)AttackBox.width, (int)AttackBox.height);
-        
+        g.drawRect((int) AttackBox.x - LevelOffSet, (int) AttackBox.y, (int) AttackBox.width, (int) AttackBox.height);
+
         // Draw the hitbox
         // Enable hitbox drawing
-        // g.drawRect((int)hitbox.x, (int)hitbox.y, (int)hitbox.width, (int)hitbox.height);
+        // g.drawRect((int)hitbox.x, (int)hitbox.y, (int)hitbox.width,
+        // (int)hitbox.height);
 
         // Draw the health bar
-        g.drawImage(HealthBar, (int)(20*Game.SCALE), (int)(20*Game.SCALE), HEALTH_BAR_WIDTH, HEALTH_BAR_HEIGHT, null);
+        g.drawImage(HealthBar, (int) (20 * Game.SCALE), (int) (20 * Game.SCALE), HEALTH_BAR_WIDTH, HEALTH_BAR_HEIGHT,
+                null);
         g.setColor(Color.RED);
-        g.fillRect(HEALTH_BAR_DRAWOFFX, HEALTH_BAR_DRAWOFFY, (int)(HEALTH_WIDTH * ((float)Health / (float)MaxHealth)), (int)(HEALTH_HEIGHT));
+        g.fillRect(HEALTH_BAR_DRAWOFFX, HEALTH_BAR_DRAWOFFY,
+                (int) (HEALTH_WIDTH * ((float) Health / (float) MaxHealth)), (int) (HEALTH_HEIGHT));
     }
 
     private void loadAnimation() {
@@ -165,13 +171,17 @@ public class Player extends Entity {
     private void updateAnimationTick() {
 
         animationTick++;
-        animationSpeed = (int) (80 / GetSpiritAmount(playerAction));
+        if(attacking == true || hurt == true)
+            animationSpeed = 10;
+        else
+            animationSpeed = 25;
         if (animationTick >= animationSpeed) {
             animationTick = 0;
             animationIndex++;
             if (animationIndex >= GetSpiritAmount(playerAction)) {
                 animationIndex = 0;
                 attacking = false;
+                hurt = false;
                 if (i <= 2)
                     i++;
                 else
@@ -182,8 +192,8 @@ public class Player extends Entity {
     }
 
     private void setAnimation() {
-
         int startedAni = playerAction;
+        if (playerAction != DEATH){
 
         if (moving)
             playerAction = RUNNING;
@@ -192,13 +202,23 @@ public class Player extends Entity {
         if (inAir)
             if (airSpeed < 0)
                 playerAction = JUMPING;
-        if (attacking) {
+        if (attacking && !hurt) {
             playerAction = ATTACK[i];
-            if(startedAni != ATTACK[i]){
+            if (startedAni != ATTACK[i]) {
                 animationIndex = 1;
                 animationTick = 0;
             }
         }
+        if (hurt && !attacking) {
+            playerAction = HURT;
+            if (startedAni != HURT) {
+                animationIndex = 1;
+                animationTick = 0;
+            }
+        }
+    }
+
+        if( Health <= 0 ) playerAction = DEATH;
         if (startedAni != playerAction) {
             resetAniTick();
         }
@@ -213,6 +233,13 @@ public class Player extends Entity {
     private void updatePos() {
         moving = false;
         xSpeed = 0;
+
+        if (hurt) {
+            xSpeed = knockback;
+            updateXPos(xSpeed);
+            xSpeed = 0;
+            return;
+        }
 
         if (jump && !attacking) {
             jump();
@@ -258,15 +285,15 @@ public class Player extends Entity {
 
     private void jump() {
         if (jump_count == 0 || jump_count == 1 || jump_count == 2)
-                jump_cache++;
-        if ((inAir && (jump_cache > 1 || jump_count > 1))|| (jump_count == 0 && jump_cache == 0))
+            jump_cache++;
+        if ((inAir && (jump_cache > 1 || jump_count > 1)) || (jump_count == 0 && jump_cache == 0))
             return;
         inAir = true;
-        if (jump_count == 1){
-            airSpeed = (int)(jumpSpeed / 1.2);
+        if (jump_count == 1) {
+            airSpeed = (int) (jumpSpeed / 1.2);
         } else
-        airSpeed = jumpSpeed;
-}
+            airSpeed = jumpSpeed;
+    }
 
     private void resetInAir() {
         inAir = false;
@@ -294,6 +321,13 @@ public class Player extends Entity {
 
     public boolean isUp() {
         return up;
+    }
+
+    public void setKnockback(float knockback, Rectangle2D.Float enemy) {
+        if (enemy.x > hitbox.x)
+            this.knockback = -knockback;
+        else if (enemy.x < hitbox.x)
+            this.knockback = knockback;
     }
 
     public void setUp(boolean up) {
@@ -328,7 +362,7 @@ public class Player extends Entity {
         this.jump = jump;
         if (!jump) {
             jump_count++;
-            jump_cache = 0;      
+            jump_cache = 0;
         }
     }
 
@@ -338,6 +372,29 @@ public class Player extends Entity {
 
     public boolean getInAir() {
         return inAir;
+    }
+
+    public void isHurt(boolean hurt) {
+        this.hurt = hurt;
+    }
+
+    public void resetAll(){
+		resetDirBoolean();
+		inAir = false;
+		attacking = false;
+		moving = false;
+		playerAction = IDLE;
+		Health = MaxHealth;
+
+		hitbox.x = x;
+		hitbox.y = y;
+
+		if (!IsEntityOnFloor(hitbox, LevelData))
+			inAir = true;
+	}
+
+    public boolean isDead(){
+        return (animationIndex == 6 && playerAction == DEATH);
     }
 
 }

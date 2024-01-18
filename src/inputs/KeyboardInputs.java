@@ -16,7 +16,7 @@ public class KeyboardInputs implements KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
+	
 
 	}
 
@@ -36,18 +36,15 @@ public class KeyboardInputs implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_ESCAPE){
-            Gamestate.state = Gamestate.MENU;
-        }
 		switch (Gamestate.state) {
-			case PLAYING:
-				gamePanel.getGame().getPlaying().keyPressed(e);
-				break;
-			case MENU:
-				gamePanel.getGame().getMenu().keyPressed(e);
-				break;
-			default:
-				break;
+		case MENU:
+			gamePanel.getGame().getMenu().keyPressed(e);
+			break;
+		case PLAYING:
+			gamePanel.getGame().getPlaying().keyPressed(e);
+			break;
+		default:
+			break;
 		}
 	}
 

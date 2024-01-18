@@ -1,6 +1,5 @@
 package gamestates;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -15,7 +14,7 @@ public class Menu extends State implements Statemethods {
     private MenuButton[] buttons = new MenuButton[3];
     private BufferedImage backgroundGUI;
     private BufferedImage backgroundMenu;
-    private int MenuX, MenuY, MenuWidth, MenuHeight, MenuRealWidth, MenuRealHeight;
+    private int MenuX, MenuY, MenuWidth, MenuHeight;
 
     public Menu(Game game) {
         super(game);
@@ -26,8 +25,6 @@ public class Menu extends State implements Statemethods {
 
     private void loadRealBackground() {
         backgroundMenu = LoadSave.GetSpriteAtlast(LoadSave.MENU_BACKGROUND_REAL);
-        MenuRealWidth = (int)(backgroundGUI.getWidth() * Game.SCALE*5);
-        MenuRealHeight = (int)(backgroundGUI.getHeight() * Game.SCALE*5);
     }
 
     private void loadBackground() {

@@ -1,7 +1,5 @@
 package entities;
 
-import static utilz.Constants.EnemyConstants.*;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
@@ -11,7 +9,7 @@ import main.Game;
 public abstract class Entity {
 
     protected int dir = 1; 
-    protected float x, y;
+    protected float x, y, knockback = 0;
     protected int width, height;
     protected Rectangle2D.Float hitbox, AttackBox;
     protected int Health;
@@ -61,6 +59,13 @@ public abstract class Entity {
         } else if(this.Health >= 100){
             this.Health = 100;
         }
+    }
+
+    public void setKnockback(float knockback, Player player) {
+        if (player.x > hitbox.x)
+            this.knockback = -knockback;
+        else if (player.x < hitbox.x)
+            this.knockback = knockback;
     }
 
 }

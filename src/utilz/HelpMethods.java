@@ -89,7 +89,10 @@ public class HelpMethods {
     }
 
     public static boolean IsFloor(Rectangle2D.Float hitbox, float xSpeed, int[][] LevelData) {
-        return isSolid(hitbox.x + xSpeed, hitbox.y + hitbox.height + 1, LevelData);
+        if (xSpeed > 0)
+            return isSolid(hitbox.x + hitbox.width + xSpeed, hitbox.y + hitbox.height + 1, LevelData);
+        else
+            return isSolid(hitbox.x + xSpeed, hitbox.y + hitbox.height + 1, LevelData);
     }
 
     public static BufferedImage flipImageHorizontally(BufferedImage image) {
@@ -104,7 +107,7 @@ public class HelpMethods {
         for (int i = 0; i < XEnd - XStart; i++) {
             if (isSingelTileSolid(XStart + i, y, LevelData))
                 return false;
-            if (!isSingelTileSolid(XStart + i, y+1, LevelData))
+            if (!isSingelTileSolid(XStart + i, y + 1, LevelData))
                 return false;
         }
         return true;

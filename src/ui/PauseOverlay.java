@@ -3,7 +3,6 @@ package ui;
 import static utilz.Constants.UI.PauseButton.SOUND_SIZE;
 import static utilz.Constants.UI.VolumeBar.*;
 import static utilz.Constants.UI.PauseMenu.*;
-import static gamestates.Gamestate.*;
 
 
 import java.awt.Graphics;

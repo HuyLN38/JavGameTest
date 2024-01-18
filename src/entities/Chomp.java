@@ -1,13 +1,10 @@
 package entities;
 
 import static utilz.Constants.EnemyConstants.*;
-import static utilz.HelpMethods.*;
-import static utilz.Constants.Direction.*;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
-import main.Game;
 
 public class Chomp extends Enemy {
 
@@ -49,7 +46,7 @@ public class Chomp extends Enemy {
                     if(aniIndex == 0)
                         attackChecked = false;
                     if(aniIndex == 3 && !attackChecked)
-                        checkPlayerHit(AttackBox, player);
+                        checkPlayerHit(AttackBox, player, this.enemyType);
                     break;
                 case HIT:
                     break;

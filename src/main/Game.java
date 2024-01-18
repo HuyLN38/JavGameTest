@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import gamestates.Gamestate;
 import gamestates.Menu;
 import gamestates.Playing;
+import utilz.LoadSave;
 
 public class Game implements Runnable {
 
@@ -27,10 +28,12 @@ public class Game implements Runnable {
 
 	public Game() {
 
+		LoadSave.GetAllLevels();
 		initClasses();
 
 		gamePanel = new GamePanel(this);
 		gameWindow = new GameWindow(gamePanel);
+		gamePanel.setFocusable(true);
 		gamePanel.requestFocus();
 
 		StartGameLoop();
@@ -138,7 +141,7 @@ public class Game implements Runnable {
 
 		if(Gamestate.state == Gamestate.PLAYING)
 			playing.getPlayer().resetDirBoolean();
-			playing.getState().state = Gamestate.MENU;
+			playing.paused = true;
 
 	}
 

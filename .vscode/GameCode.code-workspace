@@ -10,9 +10,12 @@
 	"settings": {
 		"java.project.outputPath": "bin",
 		"java.project.sourcePaths": [
-			"Test123",
+			"res",
 			"src"
 		],
-		"java.format.settings.url": "eclipse-formatter.xml"
+		"java.format.settings.url": "eclipse-formatter.xml",
+		"cSpell.words": [
+			"volumebar"
+		]
 	}
 }

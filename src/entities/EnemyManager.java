@@ -5,15 +5,11 @@ import static utilz.HelpMethods.flipImageHorizontally;
 import static utilz.LoadSave.MRCHOMPS;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import gamestates.Playing;
-import main.Game;
 import utilz.LoadSave;
 
 public class EnemyManager {
@@ -64,14 +60,20 @@ public class EnemyManager {
         for (Chomp chomp : chomps)
             if (chomp.isActive()) {
                 if (AttackBox.intersects(chomp.getHitbox())) {
-                    chomp.hurt(10);
-                    return;
+                    chomp.hurt(10, playing.getPlayer());
+                    // return;
                 }
             }
     }
 
+    public void resetAll() {
+        for (Chomp chomp : chomps) {
+            chomp.resetAll();
+        }
+    }
+
     private void loadEnemyImgs() {
-        ChompImgs = new BufferedImage[4][12];
+        ChompImgs = new BufferedImage[5][12];
         BufferedImage temp = LoadSave.GetSpriteAtlast(MRCHOMPS);
         for (int i = 0; i < ChompImgs.length; i++) {
             for (int j = 0; j < ChompImgs[i].length; j++) {

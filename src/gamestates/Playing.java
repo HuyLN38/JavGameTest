@@ -9,15 +9,14 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
-import java.awt.geom.Rectangle2D.Float;
 import java.awt.image.BufferedImage;
 
-import entities.Enemy;
 import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
 import main.Game;
 import ui.GameOverOverlay;
+import ui.LevelCompletedOverlay;
 import ui.PauseOverlay;
 import utilz.LoadSave;
 
@@ -26,10 +25,12 @@ public class Playing extends State implements Statemethods {
     private Player player;
     private LevelManager LevelManager;
     private EnemyManager EnemyManager;
+    private LevelCompletedOverlay LevelCompletedOverlay;
     private PauseOverlay pauseOverlay;
     public static boolean paused = false;
     private GameOverOverlay gameOverOverlay;
-    private boolean GameOver = false;
+    private boolean GameOver;
+    private boolean LevelCompleted;
 
     private int xLevelOffSet;
     private int leftBorder = (int) (0.2 * Game.GAME_WIDTH);
@@ -66,17 +67,21 @@ public class Playing extends State implements Statemethods {
         player.loadLvData(LevelManager.getLevel().getLevelData());
         pauseOverlay = new PauseOverlay();
         gameOverOverlay = new GameOverOverlay(this);
+        LevelCompletedOverlay = new LevelCompletedOverlay(this);
     }
 
     @Override
     public void update() {
-        if (!paused) {
+        if(paused){
+            pauseOverlay.update();
+        } else if (LevelCompleted){
+            LevelCompletedOverlay.update();
+        } else {
             LevelManager.update();
             EnemyManager.update(LevelManager.getLevel().getLevelData(), player);
             player.update();
             checkBorder();
         }
-        pauseOverlay.update();
 
     }
 
@@ -155,15 +160,21 @@ public class Playing extends State implements Statemethods {
     @Override
     public void mousePressed(MouseEvent e) {
         if (!GameOver)
-        if (paused)
+            if (paused)
             pauseOverlay.mousePressed(e);
-    }
+            else if (LevelCompleted) {
+                LevelCompletedOverlay.mousePressed(e);
+            }
+    } 
 
     @Override
     public void mouseReleased(MouseEvent e) {
         if (!GameOver)
         if (paused)
             pauseOverlay.mouseReleased(e);
+            else if (LevelCompleted) {
+                LevelCompletedOverlay.mousePressed(e);
+            }
     }
 
     @Override
@@ -171,12 +182,17 @@ public class Playing extends State implements Statemethods {
         if (!GameOver)
         if (paused)
             pauseOverlay.mouseMoved(e);
+            else if (LevelCompleted) {
+                LevelCompletedOverlay.mousePressed(e);
+            }
 
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (!GameOver) {
+        if (GameOver)
+            gameOverOverlay.keyPressed(e);
+        else
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_A:
                     player.setLeft(true);
@@ -189,13 +205,16 @@ public class Playing extends State implements Statemethods {
                 case KeyEvent.VK_SPACE:
                     player.setJump(true);
                     break;
+                case KeyEvent.VK_ESCAPE:
+                paused = !paused;
+                break;
+                }
+                
             }
-        }
-    }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (!GameOver) {
+        if (!GameOver) 
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_A:
                     player.setLeft(false);
@@ -210,14 +229,13 @@ public class Playing extends State implements Statemethods {
                     setPaused(true);
                     break;
             }
-        }
     }
 
     public Player getPlayer() {
         return player;
     }
 
-    public static Gamestate getState() {
+    public Gamestate getState() {
         return Gamestate.state;
     }
 
@@ -234,7 +252,10 @@ public class Playing extends State implements Statemethods {
     }
 
     public void resetAll() {
-
+        this.GameOver = false;
+        paused = false;
+        player.resetAll();
+        EnemyManager.resetAll();
     }
 
     public void checkEnemyHit(Rectangle2D.Float attackBox) {
@@ -243,7 +264,6 @@ public class Playing extends State implements Statemethods {
 
     public void setGameOver(boolean GameOver) {
         this.GameOver = GameOver;
-
     }
 
 }
