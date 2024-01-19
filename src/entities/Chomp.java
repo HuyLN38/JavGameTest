@@ -11,7 +11,7 @@ public class Chomp extends Enemy {
     public Chomp(float x, float y) {
         super(x, y, CHOMP_WIDTH, CHOMP_HEIGHT, CHOMP);
         WalkingSpeed = 2.5f;
-        initHitbox(x, y, (int) (CHOMP_WIDTH * 0.8), (int) (CHOMP_HEIGHT * 0.5));
+        initHitbox(x, y, (int) (CHOMP_WIDTH * 0.8), (int) (CHOMP_HEIGHT * 0.45));
         initAttackBox((int) (CHOMP_WIDTH * 0.3), (int) (CHOMP_HEIGHT * 0.3));
         
     }
@@ -49,6 +49,7 @@ public class Chomp extends Enemy {
                         checkPlayerHit(AttackBox, player, this.enemyType);
                     break;
                 case HIT:
+                    Move(LevelData);
                     break;
             }
         }

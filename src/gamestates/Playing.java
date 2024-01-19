@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
+import entities.Enemy;
 import entities.EnemyManager;
 import entities.Player;
 import levels.LevelManager;
@@ -35,9 +36,8 @@ public class Playing extends State implements Statemethods {
     private int xLevelOffSet;
     private int leftBorder = (int) (0.2 * Game.GAME_WIDTH);
     private int rightBorder = (int) (0.8 * Game.GAME_WIDTH);
-    private int LevelTitesWide = LoadSave.GetLevelData().length;
-    private int maxTitlesOffSet = LevelTitesWide - Game.TILE_IN_WIDTH;
-    private int maxLevelOffSetX = maxTitlesOffSet * Game.TILES_SIZE;
+
+    private int maxLevelOffSetX;
 
     private BufferedImage Sky, BigCloud, SmallCloud, Ground, Hills;
     private int[] SmallCloudPos;
@@ -57,6 +57,19 @@ public class Playing extends State implements Statemethods {
             SmallCloudPos[i] = (int) (Math.random() * (200 - 100) + 100);
         }
 
+        CaculateLevelOffSet();
+        loadStartLevel();
+
+    }
+
+    public void loadNextLevel() {
+        resetAll();
+        LevelManager.nextLevel();
+        player.SetSpawn(LevelManager.getLevel().getPlayerSpawn());
+    }
+
+    private void loadStartLevel() {
+        EnemyManager.LoadEnemies(LevelManager.getLevel());
     }
 
     private void initClasses() {
@@ -72,13 +85,16 @@ public class Playing extends State implements Statemethods {
 
     @Override
     public void update() {
-        if(paused){
+        if (paused) {
             pauseOverlay.update();
-        } else if (LevelCompleted){
+        } else if (LevelCompleted) {
             LevelCompletedOverlay.update();
         } else {
             LevelManager.update();
             EnemyManager.update(LevelManager.getLevel().getLevelData(), player);
+            if (EnemyManager.CheckIfWin()) {
+                LevelCompleted = true;
+            }
             player.update();
             checkBorder();
         }
@@ -122,6 +138,8 @@ public class Playing extends State implements Statemethods {
             pauseOverlay.draw(g);
         } else if (GameOver) {
             gameOverOverlay.draw(g);
+        } else if (LevelCompleted) {
+            LevelCompletedOverlay.draw(g);
         }
 
     }
@@ -152,39 +170,40 @@ public class Playing extends State implements Statemethods {
     @Override
     public void mouseClicked(MouseEvent e) {
         if (!GameOver)
-        if (e.getButton() == MouseEvent.BUTTON1) {
-            player.SetAttack(true);
-        }
+            if (e.getButton() == MouseEvent.BUTTON1) {
+                player.SetAttack(true);
+            }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if (!GameOver)
+        if (!GameOver) {
             if (paused)
-            pauseOverlay.mousePressed(e);
-            else if (LevelCompleted) {
+                pauseOverlay.mousePressed(e);
+            else if (LevelCompleted)
                 LevelCompletedOverlay.mousePressed(e);
-            }
-    } 
+        }
+
+    }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if (!GameOver)
-        if (paused)
-            pauseOverlay.mouseReleased(e);
-            else if (LevelCompleted) {
-                LevelCompletedOverlay.mousePressed(e);
-            }
+        if (!GameOver) {
+            if (paused)
+                pauseOverlay.mouseReleased(e);
+            else if (LevelCompleted)
+                LevelCompletedOverlay.mouseReleased(e);
+        }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if (!GameOver)
-        if (paused)
-            pauseOverlay.mouseMoved(e);
-            else if (LevelCompleted) {
-                LevelCompletedOverlay.mousePressed(e);
-            }
+        if (!GameOver) {
+            if (paused)
+                pauseOverlay.mouseMoved(e);
+            else if (LevelCompleted)
+                LevelCompletedOverlay.mouseMoved(e);
+        }
 
     }
 
@@ -206,15 +225,15 @@ public class Playing extends State implements Statemethods {
                     player.setJump(true);
                     break;
                 case KeyEvent.VK_ESCAPE:
-                paused = !paused;
-                break;
-                }
-                
+                    paused = !paused;
+                    break;
             }
+
+    }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (!GameOver) 
+        if (!GameOver)
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_A:
                     player.setLeft(false);
@@ -252,8 +271,9 @@ public class Playing extends State implements Statemethods {
     }
 
     public void resetAll() {
-        this.GameOver = false;
+        GameOver = false;
         paused = false;
+        LevelCompleted = false;
         player.resetAll();
         EnemyManager.resetAll();
     }
@@ -265,5 +285,22 @@ public class Playing extends State implements Statemethods {
     public void setGameOver(boolean GameOver) {
         this.GameOver = GameOver;
     }
+
+    private void CaculateLevelOffSet() {
+        maxLevelOffSetX = LevelManager.getLevel().getLevelOffset();
+    }
+
+    public void SetLevelOffSet(int xLevelOffSet) {
+        maxLevelOffSetX = xLevelOffSet;
+    }
+
+    public EnemyManager getEnemyManager() {
+        return EnemyManager;
+    }
+
+    public void setGameCompleted(boolean LevelCompleted) {
+        this.LevelCompleted = LevelCompleted;
+    }
+
 
 }

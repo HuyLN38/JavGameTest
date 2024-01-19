@@ -16,6 +16,7 @@ public class UrmButton extends PauseButton {
 		this.rowIndex = rowIndex;
 		loadImgs();
 	}
+	
 
 	private void loadImgs() {
 		BufferedImage temp = LoadSave.GetSpriteAtlast(LoadSave.URM_BUTTONS);
@@ -31,7 +32,6 @@ public class UrmButton extends PauseButton {
 			index = 1;
 		if (mousePressed)
 			index = 2;
-
 	}
 
 	public void draw(Graphics g) {
@@ -39,8 +39,8 @@ public class UrmButton extends PauseButton {
 	}
 
 	public void resetBools() {
-		mouseOver = false;
-		mousePressed = false;
+		this.mouseOver = false;
+		this.mousePressed = false;
 	}
 
 	public boolean isMouseOver() {

@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import gamestates.Playing;
+import levels.Level;
 import utilz.LoadSave;
 
 public class EnemyManager {
@@ -21,11 +22,10 @@ public class EnemyManager {
     public EnemyManager(Playing playing) {
         this.playing = playing;
         loadEnemyImgs();
-        addEnemies();
     }
 
-    private void addEnemies() {
-        chomps = LoadSave.GetChomp();
+    public void LoadEnemies(Level level) {
+        chomps = level.getChomps();
     }
 
     public void update(int[][] LevelData, Player player) {
@@ -33,7 +33,15 @@ public class EnemyManager {
             if (chomp.isActive())
                 chomp.update(LevelData, player);
         }
+    }
 
+    public boolean CheckIfWin() {
+        for (Chomp chomp : chomps) {
+            if (chomp.isActive()){
+                return false;
+            }
+        }
+        return true;
     }
 
     public void draw(Graphics g, int xLevelOffSet) {
@@ -52,7 +60,7 @@ public class EnemyManager {
 
                 g.drawImage(chompImage, (int) chomp.getHitbox().x - xLevelOffSet,
                         (int) (chomp.getHitbox().y - CHOMP_HEIGHT / 2), CHOMP_WIDTH, CHOMP_HEIGHT, null);
-                chomp.drawHitbox(g, xLevelOffSet);
+                // chomp.drawHitbox(g, xLevelOffSet);
             }
     }
 

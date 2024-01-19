@@ -1,26 +1,18 @@
 package utilz;
 
-import static utilz.Constants.EnemyConstants.CHOMP;
-
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
-
-import entities.Chomp;
-import main.Game;
 
 public class LoadSave {
 
     public static final String PLAYER_ATLAS = "res/player_sprites.png";
     public static final String LEVEL_ATLAS = "res/Texture/grassland/Terrain.png";
-    private static final String LEVEL_ONE_DATA = "res/Level1_impossible.png";
     public static final String MENU_BUTTON = "res/menu.png";
     public static final String MENU_BACKGROUND = "res/table.png";
     public static final String MENU_BACKGROUND_REAL = "res/background.png";
@@ -72,6 +64,7 @@ public class LoadSave {
            for(int j = 0; j < files.length; j++){
                if(files[j].getName().equals((i+1) + ".png")){
                    Levels[i] = files[j];
+                   System.out.println("Level: " + Levels[i].getName());
                }
            }
         }
@@ -90,36 +83,9 @@ public class LoadSave {
                 e.printStackTrace();
             }
         }
-        return null;
+        return imgs;
     }
 
-    public static ArrayList<Chomp> GetChomp(){
-        BufferedImage img = GetSpriteAtlast(LEVEL_ONE_DATA);
-        ArrayList<Chomp> list = new ArrayList<>();
-        for (int j = 0; j < img.getHeight(); j++) 
-            for (int i = 0; i < img.getWidth(); i++) {
-                Color color = new Color(img.getRGB(i,j));
-                int value = color.getGreen();
-                if (value == CHOMP )
-                 list.add(new Chomp(i* Game.TILES_SIZE, j* Game.TILES_SIZE));
-            }
-        return list;
-    }
 
-    public static int[][] GetLevelData(){
-            BufferedImage img = GetSpriteAtlast(LEVEL_ONE_DATA);
-            int[][] LevelData = new int [img.getWidth()][img.getHeight()];
-
-            for (int j = 0; j < img.getHeight(); j++) {
-                for (int i = 0; i < img.getWidth(); i++) {
-                    Color color = new Color(img.getRGB(i,j));
-                    int value = color.getRed();
-                    if (LevelData[i][j] >= 42)
-                        value = 0;
-                    LevelData[i][j] = value;
-                }
-            }
-        return LevelData;  
-    }
         
 }

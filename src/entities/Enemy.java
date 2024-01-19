@@ -51,7 +51,8 @@ public class Enemy extends Entity {
                 switch (enemyState) {
                     case ATTACK, HIT -> enemyState = IDLE;
                     case DEATH -> active = false;
-                }
+                    }
+                    knockback = 0;
             }
         }
     }
@@ -77,7 +78,7 @@ public class Enemy extends Entity {
 
     protected void Move(int[][] LevelData) {
         float xSpeed = 0;
-
+        if(enemyState != HIT && enemyState != ATTACK){
         if (walkDirection == LEFT) {
             xSpeed = -this.WalkingSpeed;
             direction = false;
@@ -85,10 +86,18 @@ public class Enemy extends Entity {
             xSpeed = this.WalkingSpeed;
             direction = true;
         }
+    }
         if (CanMoveHere(hitbox.x + xSpeed, hitbox.y, hitbox.width, hitbox.height, LevelData))
             if (IsFloor(hitbox, xSpeed, LevelData)) {
-                // if(knockback != 0)
-                //     xSpeed = knockback;
+                if(this.knockback != 0)
+                    xSpeed = this.knockback;
+                else if (walkDirection == LEFT) {
+                    xSpeed = -this.WalkingSpeed;
+                    direction = false;
+                } else {
+                    xSpeed = this.WalkingSpeed;
+                    direction = true;
+                }
                 hitbox.x += xSpeed;
                 return;
             }
@@ -157,7 +166,7 @@ public class Enemy extends Entity {
         } else {
             newState(HIT);
         }
-        setKnockback(0.2f, player);
+        setKnockback(0.4f, player);
     }
 
     public boolean isActive() {

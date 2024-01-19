@@ -6,7 +6,9 @@ import java.awt.image.BufferedImage;
 import utilz.LoadSave;
 import static utilz.Constants.UI.URMButtons.*;
 
+import gamestates.Gamestate;
 import gamestates.Playing;
+import levels.LevelManager;
 import main.Game;
 
 public class LevelCompletedOverlay {
@@ -23,7 +25,7 @@ public class LevelCompletedOverlay {
     }
 
     private void initButtons() {
-        img = LoadSave.GetSpriteAtlast(LoadSave.URM_BUTTONS);
+        img = LoadSave.GetSpriteAtlast(LoadSave.LEVEL_COMPLETED);
         int menuX = (int) (330 * Game.SCALE);
         int nextX = (int) (445 * Game.SCALE);
         int y = (int) (195 * Game.SCALE);
@@ -57,14 +59,12 @@ public class LevelCompletedOverlay {
     }
 
     public void mouseMoved(MouseEvent e) {
+        menu.setMouseOver(false);
+        next.setMouseOver(false);
         if (isIn(menu, e))
-            menu.setMouseOver(true);
-        else
-            menu.setMouseOver(false);
-        if (isIn(next, e))
-            next.setMouseOver(true);
-        else
-            next.setMouseOver(false);
+            menu.setMouseOver(true);    
+        else if (isIn(next, e)) 
+            next.setMouseOver(true);  
     }
 
     public void mousePressed(MouseEvent e) {
@@ -76,11 +76,13 @@ public class LevelCompletedOverlay {
 
     public void mouseReleased(MouseEvent e) {
         if (isIn(menu, e))
-            if (menu.isMousePressed())
-                System.out.println("Menu");
+            if (menu.isMousePressed()){
+                Playing.resetAll();
+                Gamestate.state = Gamestate.MENU;
+            }
         if (isIn(next, e))
             if (next.isMousePressed()) {
-                System.out.println("Next");
+                Playing.loadNextLevel();
             }
         menu.resetBools();
         next.resetBools();

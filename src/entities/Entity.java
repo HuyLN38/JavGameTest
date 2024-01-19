@@ -62,9 +62,9 @@ public abstract class Entity {
     }
 
     public void setKnockback(float knockback, Player player) {
-        if (player.x > hitbox.x)
+        if (player.getHitbox().x > hitbox.x)
             this.knockback = -knockback;
-        else if (player.x < hitbox.x)
+        else if (player.getHitbox().x < hitbox.x)
             this.knockback = knockback;
     }
 

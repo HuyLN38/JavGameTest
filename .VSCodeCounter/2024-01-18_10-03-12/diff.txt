@@ -1,0 +1,64 @@
+Date : 2024-01-18 10:03:12
+Directory : d:\Code\JavGameTest
+Total : 25 files,  245 codes, -6 comments, 31 blanks, all 270 lines
+
+Languages
++----------+------------+------------+------------+------------+------------+
+| language | files      | code       | comment    | blank      | total      |
++----------+------------+------------+------------+------------+------------+
+| Markdown |          4 |        224 |          0 |         26 |        250 |
+| Java     |         20 |         20 |         -6 |          5 |         19 |
+| JSON     |          1 |          1 |          0 |          0 |          1 |
++----------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                   | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                      |         25 |        245 |         -6 |         31 |        270 |
+| .VSCodeCounter                                                         |          5 |        225 |          0 |         26 |        251 |
+| .VSCodeCounter\2024-01-17_23-50-48                                     |          5 |        225 |          0 |         26 |        251 |
+| bin                                                                    |          8 |          9 |          0 |          0 |          9 |
+| bin\entities                                                           |          4 |         12 |          0 |          0 |         12 |
+| bin\gamestates                                                         |          1 |         -4 |          0 |          0 |         -4 |
+| bin\main                                                               |          1 |         -1 |          0 |          0 |         -1 |
+| bin\utilz                                                              |          2 |          2 |          0 |          0 |          2 |
+| src                                                                    |         12 |         11 |         -6 |          5 |         10 |
+| src\entities                                                           |          5 |          7 |          0 |          0 |          7 |
+| src\gamestates                                                         |          2 |         -5 |          0 |          0 |         -5 |
+| src\inputs                                                             |          2 |          0 |         -4 |          4 |          0 |
+| src\ui                                                                 |          1 |         -1 |          0 |          0 |         -1 |
+| src\utilz                                                              |          2 |         10 |         -2 |          1 |          9 |
++------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| filename                                                               | language | code       | comment    | blank      | total      |
++------------------------------------------------------------------------+----------+------------+------------+------------+------------+
+| d:\Code\JavGameTest\.VSCodeCounter\2024-01-17_23-50-48\details.md      | Markdown |        103 |          0 |          6 |        109 |
+| d:\Code\JavGameTest\.VSCodeCounter\2024-01-17_23-50-48\diff-details.md | Markdown |         45 |          0 |          6 |         51 |
+| d:\Code\JavGameTest\.VSCodeCounter\2024-01-17_23-50-48\diff.md         | Markdown |         34 |          0 |          7 |         41 |
+| d:\Code\JavGameTest\.VSCodeCounter\2024-01-17_23-50-48\results.json    | JSON     |          1 |          0 |          0 |          1 |
+| d:\Code\JavGameTest\.VSCodeCounter\2024-01-17_23-50-48\results.md      | Markdown |         42 |          0 |          7 |         49 |
+| d:\Code\JavGameTest\bin\entities\Chomp.class                           | Java     |          1 |          0 |          0 |          1 |
+| d:\Code\JavGameTest\bin\entities\Enemy.class                           | Java     |          1 |          0 |          0 |          1 |
+| d:\Code\JavGameTest\bin\entities\Entity.class                          | Java     |         -1 |          0 |          0 |         -1 |
+| d:\Code\JavGameTest\bin\entities\Player.class                          | Java     |         11 |          0 |          0 |         11 |
+| d:\Code\JavGameTest\bin\gamestates\Menu.class                          | Java     |         -4 |          0 |          0 |         -4 |
+| d:\Code\JavGameTest\bin\main\Game.class                                | Java     |         -1 |          0 |          0 |         -1 |
+| d:\Code\JavGameTest\bin\utilz\Constants$PlayerConstants.class          | Java     |         -1 |          0 |          0 |         -1 |
+| d:\Code\JavGameTest\bin\utilz\LoadSave.class                           | Java     |          3 |          0 |          0 |          3 |
+| d:\Code\JavGameTest\src\entities\Chomp.java                            | Java     |         -3 |          0 |          0 |         -3 |
+| d:\Code\JavGameTest\src\entities\Enemy.java                            | Java     |          5 |          0 |          0 |          5 |
+| d:\Code\JavGameTest\src\entities\EnemyManager.java                     | Java     |         -5 |          1 |          0 |         -4 |
+| d:\Code\JavGameTest\src\entities\Entity.java                           | Java     |         -1 |          0 |         -1 |         -2 |
+| d:\Code\JavGameTest\src\entities\Player.java                           | Java     |         11 |         -1 |          1 |         11 |
+| d:\Code\JavGameTest\src\gamestates\Menu.java                           | Java     |         -3 |          0 |          0 |         -3 |
+| d:\Code\JavGameTest\src\gamestates\Playing.java                        | Java     |         -2 |          0 |          0 |         -2 |
+| d:\Code\JavGameTest\src\inputs\KeyboardInputs.java                     | Java     |          0 |         -1 |          1 |          0 |
+| d:\Code\JavGameTest\src\inputs\MouseInputs.java                        | Java     |          0 |         -3 |          3 |          0 |
+| d:\Code\JavGameTest\src\ui\PauseOverlay.java                           | Java     |         -1 |          0 |          0 |         -1 |
+| d:\Code\JavGameTest\src\utilz\Constants.java                           | Java     |          2 |          0 |          0 |          2 |
+| d:\Code\JavGameTest\src\utilz\LoadSave.java                            | Java     |          8 |         -2 |          1 |          7 |
+| Total                                                                  |          |        245 |         -6 |         31 |        270 |
++------------------------------------------------------------------------+----------+------------+------------+------------+------------+

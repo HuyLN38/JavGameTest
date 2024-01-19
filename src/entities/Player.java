@@ -2,6 +2,7 @@ package entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
@@ -55,6 +56,13 @@ public class Player extends Entity {
         Health = MaxHealth;
         initHitbox(x, y, (int) (width / 8) * Game.SCALE, height / 5 * Game.SCALE);
         initAttackBox(20, 20);
+    }
+
+    public void SetSpawn(Point spawn){
+        this.x = spawn.x;
+        this.y = spawn.y;
+        hitbox.x = x;
+        hitbox.y = y;
     }
 
     public void update() {
@@ -122,8 +130,8 @@ public class Player extends Entity {
             g.drawImage(temp, xDrawPos - LevelOffSet, yDrawPos, drawWidth, drawHeight, null);
         }
         // Draw attackBox
-        g.setColor(Color.PINK);
-        g.drawRect((int) AttackBox.x - LevelOffSet, (int) AttackBox.y, (int) AttackBox.width, (int) AttackBox.height);
+        // g.setColor(Color.PINK);
+        // g.drawRect((int) AttackBox.x - LevelOffSet, (int) AttackBox.y, (int) AttackBox.width, (int) AttackBox.height);
 
         // Draw the hitbox
         // Enable hitbox drawing
@@ -173,8 +181,10 @@ public class Player extends Entity {
         animationTick++;
         if(attacking == true || hurt == true)
             animationSpeed = 10;
-        else
-            animationSpeed = 25;
+        else if (moving == true){
+            animationSpeed = 10;
+        }
+        else animationSpeed = 25;
         if (animationTick >= animationSpeed) {
             animationTick = 0;
             animationIndex++;
